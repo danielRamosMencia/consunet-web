@@ -1,3 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  @font-face {
+    font-family: "Kanit";
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: local("Kanit-Regular"), url("./font/Kanit-Regular.ttf"),
+      format("truetype");
+  }
+}
