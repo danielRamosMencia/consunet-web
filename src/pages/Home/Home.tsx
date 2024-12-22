@@ -1,9 +1,7 @@
-import LoginForm from "@components/forms/LoginForm";
-
 const Home = () => {
   return (
     <div>
-      <LoginForm />
+      <h1>Home</h1>
     </div>
   );
 };
