@@ -31,5 +31,5 @@ pnpm run dev
 ```
 
 The project is builded with Vite, and pnpm as package manager.
-[See more about Vite](https://vite.dev/guide/).
-[See more about pnpm](https://pnpm.io/installation).
+- [See more about Vite](https://vite.dev/guide/).
+- [See more about pnpm](https://pnpm.io/installation).
