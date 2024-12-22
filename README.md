@@ -1,6 +1,6 @@
 ## Web application and fronted layer for Consunet.
 
-### Prerrequistes
+### Prerequistes
 
 - Install Node Js.
 - Install TypeScript globally.
@@ -24,7 +24,7 @@ git clone https://github.com/danielRamosMencia/consunet-web.git
 pnpm install
 ```
 
-3. Execute the web app:
+3. Execute the web app
 
 ```sh
 pnpm run dev
