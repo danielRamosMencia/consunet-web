@@ -8,6 +8,7 @@ type InputProps = {
   error?: FieldError;
   placeholder?: string;
   defaultValue?: string | number;
+  readonly?: boolean;
 };
 
 const Input = ({
@@ -18,6 +19,7 @@ const Input = ({
   error,
   placeholder,
   defaultValue,
+  readonly = false,
 }: InputProps) => {
   return (
     <div className="flex flex-col gap-1">
@@ -25,12 +27,15 @@ const Input = ({
         {label}
       </label>
       <input
-        defaultValue={defaultValue}
         id={id}
         type={type}
         {...register}
         placeholder={placeholder}
-        className="border border-gray-300 p-2 rounded focus:outline-blue-500"
+        readOnly={readonly}
+        defaultValue={defaultValue}
+        className={`${
+          readonly ? "bg-slate-300" : ""
+        } "border border-gray-300 py-2 px-4 rounded focus:outline-blue-500"`}
       />
       {error && <p className="text-red-500 text-sm">{error.message}</p>}
     </div>

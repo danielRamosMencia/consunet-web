@@ -16,7 +16,7 @@ const Button = ({
   variant = "primary",
 }: ButtonProps) => {
   const defaultClasses =
-    "font-bold py-2 px-6 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2";
+    "py-2 px-6 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2";
 
   const variantClasses: Record<ButtonVariant, string> = {
     primary: "bg-blue-500 hover:bg-blue-700 text-white focus:ring-blue-500",
