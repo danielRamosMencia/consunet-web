@@ -13,8 +13,9 @@ const LoginForm = () => {
     resolver: zodResolver(loginSchema),
   });
 
-  const onSubmit = () => {
+  const onSubmit = (data: loginData) => {
     console.log("Form submitted");
+    console.log("Data", JSON.stringify(data, undefined, 2));
   };
 
   const onCancel = () => {
@@ -34,7 +35,6 @@ const LoginForm = () => {
           type="text"
           register={register("username")}
           error={errors.username}
-          value={"Hello world"}
         />
 
         <InputField
@@ -44,7 +44,6 @@ const LoginForm = () => {
           type="password"
           register={register("password")}
           error={errors.password}
-          value={"admin12."}
         />
 
         <div className="flex gap-2 items-end justify-end">

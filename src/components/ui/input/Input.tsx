@@ -7,7 +7,7 @@ type InputProps = {
   register: UseFormRegisterReturn;
   error?: FieldError;
   placeholder?: string;
-  value?: string | number;
+  defaultValue?: string | number;
 };
 
 const Input = ({
@@ -17,7 +17,7 @@ const Input = ({
   register,
   error,
   placeholder,
-  value,
+  defaultValue,
 }: InputProps) => {
   return (
     <div className="flex flex-col gap-1">
@@ -25,7 +25,7 @@ const Input = ({
         {label}
       </label>
       <input
-        value={value}
+        defaultValue={defaultValue}
         id={id}
         type={type}
         {...register}
