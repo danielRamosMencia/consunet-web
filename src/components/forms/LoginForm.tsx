@@ -1,11 +1,13 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router";
 import { LoginSchema, LoginData } from "@schemas/loginSchema";
 import Button from "@components/ui/button/Button";
 import Input from "@components/ui/input/Input";
 import { useContext } from "react";
 import { AuthContext } from "@context/AuthContext";
-import { useNavigate } from "react-router";
+import { useSignIn } from "@services/hooks/useSignIn";
+
 
 const LoginForm = () => {
   const {
@@ -16,17 +18,24 @@ const LoginForm = () => {
     resolver: zodResolver(LoginSchema),
   });
 
+  const { mutate: signIn, isError, error } = useSignIn();
+
   const navigate = useNavigate();
 
   const { setAuthenticated, setUsername, setEmail } = useContext(AuthContext);
 
   const onSubmit = (data: LoginData) => {
-    console.log("Form submitted");
-    console.log("Data", JSON.stringify(data, undefined, 2));
-    setAuthenticated(true);
-    setUsername(data.username);
-    setEmail(data.username + "@consunet.com");
-    navigate("/projects");
+    signIn(data, {
+      onSuccess: (result) => {
+        setAuthenticated(true);
+        setUsername(result.user.username);
+        setEmail(result.user.email);
+        navigate("/projects");
+      },
+      onError: (error) => {
+        console.error("Sign in error", error.code, error.message);
+      },
+    });
   };
 
   const onCancel = () => {
@@ -53,6 +62,15 @@ const LoginForm = () => {
         />
 
         <Input
+          id="email"
+          label="Email"
+          placeholder="Ingrese su email"
+          register={register("email")}
+          error={errors.email}
+          required
+        />
+
+        <Input
           id="password"
           label="Contraseña"
           placeholder="Ingrese su contraseña"
@@ -75,6 +93,12 @@ const LoginForm = () => {
           </Button>
         </div>
       </form>
+
+      {isError && (
+        <div className="text-red-500">
+          {error.response?.data && <p>{error.response.data.message}</p>}
+        </div>
+      )}
     </div>
   );
 };

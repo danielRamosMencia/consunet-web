@@ -8,6 +8,13 @@ export const LoginSchema = z.object({
     .min(4, {
       message: "El usuario debe tener al menos 4 caracteres",
     }),
+  email: z
+    .string({
+      required_error: "El email es requerido",
+    })
+    .email({
+      message: "El email no es válido",
+    }),
   password: z
     .string({
       required_error: "La contraseña es requerida",
