@@ -35,6 +35,7 @@ const LoginForm = () => {
           type="text"
           register={register("username")}
           error={errors.username}
+          required
         />
 
         <Input
@@ -44,6 +45,7 @@ const LoginForm = () => {
           type="password"
           register={register("password")}
           error={errors.password}
+          required
         />
 
         <div className="flex gap-2 items-end justify-end">
