@@ -29,6 +29,8 @@
       "@pages/*": ["src/pages/*"],
       "@layouts/*": ["src/layouts/*"],
       "@schemas/*": ["src/types/schemas/*"],
+      "@api/*": ["src/types/api/*"],
+      "@shared/*": ["src/types/shared/*"],
       "@context/*": ["src/context/*"],
       "@services/*": ["src/services/*"]
     }

@@ -6,8 +6,7 @@ import Button from "@components/ui/button/Button";
 import Input from "@components/ui/input/Input";
 import { useContext } from "react";
 import { AuthContext } from "@context/AuthContext";
-import { useSignIn } from "@services/hooks/useSignIn";
-
+import { useSignIn } from "@services/hooks/auth/useSignIn";
 
 const LoginForm = () => {
   const {
