@@ -12,6 +12,7 @@ export default defineConfig({
       "@layouts": path.resolve(__dirname, "./src/layouts"),
       "@schemas": path.resolve(__dirname, "./src/types/schemas"),
       "@context": path.resolve(__dirname, "./src/context"),
+      "@services": path.resolve(__dirname, "./src/services"),
     },
   },
 });
