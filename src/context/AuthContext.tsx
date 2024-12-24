@@ -9,9 +9,9 @@ type AuthContextType = {
   authenticated: boolean;
   setAuthenticated: (newState: boolean) => void;
   username: string | null;
-  setUsername: (newUsername: string) => void;
+  setUsername: (newUsername: string | null) => void;
   email: string | null;
-  setEmail: (newEmail: string) => void;
+  setEmail: (newEmail: string | null) => void;
 };
 
 const initialVaues: AuthContextType = {
@@ -31,8 +31,11 @@ const AuthProvider = ({ children }: Props) => {
   const [email, setEmail] = useState<string | null>(null);
   const navigate = useNavigate();
 
-  if (!authenticated) {
-    navigate("/");
+  if (authenticated) {
+    if (username === null || email === null) {
+      navigate("/login");
+    }
+    console.log("Authenticated: ", authenticated, username, email);
   }
 
   return (
@@ -51,4 +54,4 @@ const AuthProvider = ({ children }: Props) => {
   );
 };
 
-export { AuthProvider, AuthContext };
+export { AuthContext, AuthProvider };

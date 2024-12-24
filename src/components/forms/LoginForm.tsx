@@ -3,6 +3,9 @@ import { useForm } from "react-hook-form";
 import { LoginSchema, LoginData } from "@schemas/loginSchema";
 import Button from "@components/ui/button/Button";
 import Input from "@components/ui/input/Input";
+import { useContext } from "react";
+import { AuthContext } from "@context/AuthContext";
+import { useNavigate } from "react-router";
 
 const LoginForm = () => {
   const {
@@ -13,13 +16,24 @@ const LoginForm = () => {
     resolver: zodResolver(LoginSchema),
   });
 
+  const navigate = useNavigate();
+
+  const { setAuthenticated, setUsername, setEmail } = useContext(AuthContext);
+
   const onSubmit = (data: LoginData) => {
     console.log("Form submitted");
     console.log("Data", JSON.stringify(data, undefined, 2));
+    setAuthenticated(true);
+    setUsername(data.username);
+    setEmail(data.username + "@consunet.com");
+    navigate("/projects");
   };
 
   const onCancel = () => {
     console.log("Form canceled");
+    setAuthenticated(false);
+    setUsername(null);
+    setEmail(null);
   };
 
   return (

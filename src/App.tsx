@@ -1,7 +1,20 @@
-import { Routes, Route } from "react-router";
+import { Routes, Route, Navigate, Outlet } from "react-router";
 import Home from "@pages/home/Home";
 import Login from "@pages/login/Login";
 import NavBar from "@layouts/navbar/NavBar";
+import { useContext } from "react";
+import { AuthContext } from "@context/AuthContext";
+import Projects from "@pages/projects/Projects";
+
+const PrivateRoutes = () => {
+  const { authenticated } = useContext(AuthContext);
+
+  if (!authenticated) {
+    return <Navigate to="/" replace />;
+  }
+
+  return <Outlet />;
+};
 
 const App = () => {
   return (
@@ -11,6 +24,9 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
+          <Route element={<PrivateRoutes />}>
+            <Route path="/projects" element={<Projects />}></Route>
+          </Route>
         </Routes>
       </div>
     </>

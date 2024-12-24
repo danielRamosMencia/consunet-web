@@ -27,6 +27,7 @@
       "@pages/*": ["src/pages/*"],
       "@layouts/*": ["src/layouts/*"],
       "@schemas/*": ["src/types/schemas/*"],
+      "@context/*": ["src/context/*"]
     }
   },
   "include": ["vite.config.ts"]
