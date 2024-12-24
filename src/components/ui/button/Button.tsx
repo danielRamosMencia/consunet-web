@@ -41,5 +41,6 @@ const Button = ({
     </button>
   );
 };
+Button.displayName = "Button";
 
 export default Button;

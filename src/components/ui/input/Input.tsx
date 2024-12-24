@@ -44,5 +44,6 @@ const Input = ({
     </div>
   );
 };
+Input.displayName = "Input";
 
 export default Input;
