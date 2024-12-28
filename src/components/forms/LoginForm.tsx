@@ -1,14 +1,18 @@
-import { zodResolver } from "@hookform/resolvers/zod";
+import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginSchema, LoginData } from "@schemas/loginSchema";
 import Button from "@components/ui/button/Button";
 import Input from "@components/ui/input/Input";
-import { useContext } from "react";
 import { AuthContext } from "@context/AuthContext";
 import { useSignIn } from "@services/hooks/auth/useSignIn";
+import { useToast } from "@context/ToastContext";
 
 const LoginForm = () => {
+  const { setAuthenticated, setUsername, setEmail } = useContext(AuthContext);
+  const { showToast } = useToast();
+
   const {
     register,
     handleSubmit,
@@ -21,24 +25,26 @@ const LoginForm = () => {
 
   const navigate = useNavigate();
 
-  const { setAuthenticated, setUsername, setEmail } = useContext(AuthContext);
-
   const onSubmit = (data: LoginData) => {
     signIn(data, {
       onSuccess: (result) => {
+        console.log("Sign in success", result);
         setAuthenticated(true);
-        setUsername(result.user.username);
-        setEmail(result.user.email);
+        setUsername(result.user_data.username);
+        setEmail(result.user_data.email);
+        showToast(result.message, "success", 7000);
         navigate("/projects");
       },
       onError: (error) => {
         console.error("Sign in error", error.code, error.message);
+        showToast("Error al iniciar sesión", "error", 7000);
       },
     });
   };
 
   const onCancel = () => {
     console.log("Form canceled");
+    showToast("Formulario cancelado", "info", 7000);
     setAuthenticated(false);
     setUsername(null);
     setEmail(null);
@@ -92,7 +98,6 @@ const LoginForm = () => {
           </Button>
         </div>
       </form>
-
       {isError && (
         <div className="text-red-500">
           {error.response?.data && <p>{error.response.data.message}</p>}
@@ -101,5 +106,6 @@ const LoginForm = () => {
     </div>
   );
 };
+LoginForm.displayName = "LoginForm";
 
 export default LoginForm;
