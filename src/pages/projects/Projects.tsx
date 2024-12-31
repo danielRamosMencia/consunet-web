@@ -1,4 +1,5 @@
 import { useGetUserProjects } from "@services/hooks/project/useGetUserProjects";
+import Card from "@components/ui/card/Card";
 
 const Projects = () => {
   const { data, isLoading, isError, error } = useGetUserProjects();
@@ -7,13 +8,15 @@ const Projects = () => {
   if (isError) return <div>Error: {error?.response?.data.error}</div>;
 
   return (
-    <div>
-      <h1>Projects</h1>
-      <ul>
-        {data?.data.map((project) => (
-          <li key={project.id}>{project.name}</li>
-        ))}
-      </ul>
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      {data?.data.map((project) => (
+        <Card
+          key={project.id}
+          title={project.name}
+          label={project.code}
+          link={`/projects/${project.id}`}
+        />
+      ))}
     </div>
   );
 };
