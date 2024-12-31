@@ -5,6 +5,7 @@ import NavBar from "@layouts/navbar/NavBar";
 import { useContext } from "react";
 import { AuthContext } from "@context/AuthContext";
 import Projects from "@pages/projects/Projects";
+import Info from "@pages/info/Info";
 
 const PrivateRoutes = () => {
   const { authenticated } = useContext(AuthContext);
@@ -26,6 +27,7 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route element={<PrivateRoutes />}>
             <Route path="/projects" element={<Projects />}></Route>
+            <Route path="/info" element={<Info />}></Route>
           </Route>
         </Routes>
       </div>

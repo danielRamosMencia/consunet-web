@@ -1,11 +1,46 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { NavLink } from "react-router";
+import { AuthContext } from "@context/AuthContext";
+import { useToast } from "@context/ToastContext";
+import { useSignOut } from "@services/hooks/auth/useSignOut";
 
 const NavBar = () => {
+  const { setAuthenticated, setUsername, setEmail, setId, authenticated } =
+    useContext(AuthContext);
   const [isOpen, setIsOpen] = useState(false);
 
   const handleOpen = (): void => {
     setIsOpen(!isOpen);
+  };
+
+  const { mutate } = useSignOut();
+
+  const { showToast } = useToast();
+
+  const handleLogout = () => {
+    mutate(undefined, {
+      onSuccess: (result) => {
+        setAuthenticated(false);
+        setUsername(null);
+        setEmail(null);
+        setId(null);
+
+        localStorage.removeItem("token");
+        localStorage.removeItem("username");
+        localStorage.removeItem("email");
+        localStorage.removeItem("id");
+
+        showToast(result.message, "success", 7000);
+      },
+      onError: (error) => {
+        showToast(
+          error.response?.data.error ??
+            "Error desconocido, contacte a soporte técnico",
+          "error",
+          7000
+        );
+      },
+    });
   };
 
   return (
@@ -26,6 +61,14 @@ const NavBar = () => {
               >
                 Login
               </NavLink>
+              {authenticated && (
+                <button
+                  onClick={handleLogout}
+                  className="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-500"
+                >
+                  Logout
+                </button>
+              )}
             </div>
           </div>
           <div className="-mr-2 flex md:hidden">
@@ -84,6 +127,14 @@ const NavBar = () => {
           >
             Login
           </NavLink>
+          {authenticated && (
+            <button
+              onClick={handleLogout}
+              className="block py-2 rounded-md text-base font-medium hover:bg-blue-500"
+            >
+              Logout
+            </button>
+          )}
         </div>
       </div>
     </nav>

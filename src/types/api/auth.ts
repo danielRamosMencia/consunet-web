@@ -11,3 +11,7 @@ export type LoginResponse = {
   user_data: UserData;
   message: string;
 };
+
+export type LogoutResponse = {
+  message: string;
+};

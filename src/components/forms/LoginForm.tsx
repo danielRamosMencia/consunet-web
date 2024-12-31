@@ -21,23 +21,39 @@ const LoginForm = () => {
     resolver: zodResolver(LoginSchema),
   });
 
-  const { mutate: signIn, isError, error } = useSignIn();
+  const { mutate } = useSignIn();
 
   const navigate = useNavigate();
 
   const onSubmit = (data: LoginData) => {
-    signIn(data, {
+    mutate(data, {
       onSuccess: (result) => {
         console.log("Sign in success", result);
         setAuthenticated(true);
         setUsername(result.user_data.username);
         setEmail(result.user_data.email);
+
+        localStorage.setItem("token", result.token);
+        localStorage.setItem("username", result.user_data.username);
+        localStorage.setItem("email", result.user_data.email);
+        localStorage.setItem("id", result.user_data.id);
+
         showToast(result.message, "success", 7000);
         navigate("/projects");
       },
       onError: (error) => {
-        console.error("Sign in error", error.code, error.message);
-        showToast("Error al iniciar sesión", "error", 7000);
+        console.error(
+          "Sign in error",
+          error.code,
+          error.message,
+          error.response?.data.code
+        );
+        showToast(
+          error.response?.data.error ??
+            "Error desconocido, contacte a soporte técnico",
+          "error",
+          7000
+        );
       },
     });
   };
@@ -98,11 +114,6 @@ const LoginForm = () => {
           </Button>
         </div>
       </form>
-      {isError && (
-        <div className="text-red-500">
-          {error.response?.data && <p>{error.response.data.message}</p>}
-        </div>
-      )}
     </div>
   );
 };

@@ -3,8 +3,8 @@ export interface SuccessResponse {
 }
 
 export interface ErrorResponse {
-  message: string;
   code: string;
+  error: string;
 }
 
 export interface ErrorValidationResponse extends ErrorResponse {
