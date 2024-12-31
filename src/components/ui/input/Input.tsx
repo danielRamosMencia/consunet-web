@@ -36,6 +36,7 @@ const Input = ({
         placeholder={placeholder}
         readOnly={readonly}
         defaultValue={defaultValue}
+        autoComplete="off"
         className={`${
           readonly ? "bg-slate-300" : ""
         } "border border-gray-400 py-2 px-4 rounded focus:outline-blue-500"`}

@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate, Outlet } from "react-router";
+import { Routes, Route, Navigate, Outlet, Link } from "react-router";
 import Home from "@pages/home/Home";
 import Login from "@pages/login/Login";
 import NavBar from "@layouts/navbar/NavBar";
@@ -23,11 +23,31 @@ const App = () => {
       <NavBar />
       <div className="font-kanit container m-auto mt-20">
         <Routes>
+          {/* Public routes */}
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
+
+          {/* Private routes */}
           <Route element={<PrivateRoutes />}>
-            <Route path="/projects" element={<Projects />}></Route>
-            <Route path="/info" element={<Info />}></Route>
+            {/* Project Routers */}
+            <Route path="/projects">
+              <Route index element={<Projects />} />
+              <Route
+                path=":id"
+                element={
+                  <div>
+                    <p>Project Detail</p>
+                    <Link to={"/projects"}>Volver</Link>
+                  </div>
+                }
+              />
+              <Route />
+            </Route>
+
+            {/* Info Routes */}
+            <Route path="/info">
+              <Route index element={<Info />} />
+            </Route>
           </Route>
         </Routes>
       </div>

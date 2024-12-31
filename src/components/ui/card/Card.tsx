@@ -19,12 +19,7 @@ const Card = ({ title, label, link }: CardProps) => {
       <div className="p-4 flex-1 flex flex-col">
         <h3 className="text-lg font-semibold text-gray-800 mb-2">{title}</h3>
         <p className="text-gray-600 mb-4">{label}</p>
-        <Link
-          to={link}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-blue-600 hover:underline font-medium"
-        >
+        <Link to={link} className="text-blue-600 hover:underline font-medium">
           Ver Proyecto
         </Link>
       </div>
