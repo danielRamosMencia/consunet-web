@@ -11,6 +11,7 @@ import { useToast } from "@context/ToastContext";
 
 const LoginForm = () => {
   const { setAuthenticated, setUsername, setEmail } = useContext(AuthContext);
+
   const { showToast } = useToast();
 
   const {
@@ -28,7 +29,6 @@ const LoginForm = () => {
   const onSubmit = (data: LoginData) => {
     mutate(data, {
       onSuccess: (result) => {
-        console.log("Sign in success", result);
         setAuthenticated(true);
         setUsername(result.user_data.username);
         setEmail(result.user_data.email);
@@ -58,12 +58,8 @@ const LoginForm = () => {
     });
   };
 
-  const onCancel = () => {
-    console.log("Form canceled");
-    showToast("Formulario cancelado", "info", 7000);
-    setAuthenticated(false);
-    setUsername(null);
-    setEmail(null);
+  const onBack = () => {
+    navigate("/");
   };
 
   return (
@@ -105,12 +101,8 @@ const LoginForm = () => {
           <Button key={"login-button-submit"} type="submit" variant="primary">
             Ingresar
           </Button>
-          <Button
-            key={"login-button-cancel"}
-            onClick={onCancel}
-            variant="cancel"
-          >
-            Cancelar
+          <Button key={"login-button-cancel"} onClick={onBack} variant="cancel">
+            Volver
           </Button>
         </div>
       </form>

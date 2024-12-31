@@ -30,6 +30,7 @@ const NavBar = () => {
         localStorage.removeItem("email");
         localStorage.removeItem("id");
 
+        setIsOpen(false);
         showToast(result.message, "success", 7000);
       },
       onError: (error) => {
