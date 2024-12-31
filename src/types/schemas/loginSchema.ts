@@ -24,4 +24,4 @@ export const LoginSchema = z.object({
     }),
 });
 
-export type LoginData = z.infer<typeof LoginSchema>;
+export type LoginRequest = z.infer<typeof LoginSchema>;

@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { LoginSchema, LoginData } from "@schemas/loginSchema";
+import { LoginSchema, LoginRequest } from "@schemas/loginSchema";
 import Button from "@components/ui/button/Button";
 import Input from "@components/ui/input/Input";
 import { AuthContext } from "@context/AuthContext";
@@ -18,7 +18,7 @@ const LoginForm = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<LoginData>({
+  } = useForm<LoginRequest>({
     resolver: zodResolver(LoginSchema),
   });
 
@@ -26,7 +26,7 @@ const LoginForm = () => {
 
   const navigate = useNavigate();
 
-  const onSubmit = (data: LoginData) => {
+  const onSubmit = (data: LoginRequest) => {
     mutate(data, {
       onSuccess: (result) => {
         setAuthenticated(true);
