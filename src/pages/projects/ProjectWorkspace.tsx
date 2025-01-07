@@ -1,12 +1,13 @@
 import { Link, useParams } from "react-router";
 import Button from "@components/ui/button/Button";
 import { useGetProjectDevices } from "@services/hooks/project/useGetProjectDevices";
+import Spinner from "@components/ui/spinner/Spinner";
 
 const ProjectWorkspace = () => {
   const { id } = useParams<{ id: string }>();
   const { data, isLoading, isError, error } = useGetProjectDevices(id!);
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <Spinner />;
   if (isError) return <div>Error: {error?.response?.data.error}</div>;
 
   return (
