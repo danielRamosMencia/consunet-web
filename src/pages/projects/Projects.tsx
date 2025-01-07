@@ -15,6 +15,7 @@ const Projects = () => {
           title={project.name}
           label={project.code}
           link={`/projects/${project.id}`}
+          linkText="Ir a proyecto"
         />
       ))}
     </div>

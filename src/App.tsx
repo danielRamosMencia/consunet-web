@@ -5,6 +5,7 @@ import NavBar from "@layouts/navbar/NavBar";
 import { useContext } from "react";
 import { AuthContext } from "@context/AuthContext";
 import Projects from "@pages/projects/Projects";
+import ProjectWorkspace from "@pages/projects/ProjectWorkspace";
 import Info from "@pages/info/Info";
 
 const PrivateRoutes = () => {
@@ -32,15 +33,7 @@ const App = () => {
             {/* Project Routers */}
             <Route path="/projects">
               <Route index element={<Projects />} />
-              <Route
-                path=":id"
-                element={
-                  <div>
-                    <p>Project Detail</p>
-                    <Link to={"/projects"}>Volver</Link>
-                  </div>
-                }
-              />
+              <Route path=":id" element={<ProjectWorkspace />} />
               <Route />
             </Route>
 
