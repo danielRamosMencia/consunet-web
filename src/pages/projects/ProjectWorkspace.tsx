@@ -2,9 +2,18 @@ import { Link, useParams } from "react-router";
 import Button from "@components/ui/button/Button";
 import { useGetProjectDevices } from "@services/hooks/project/useGetProjectDevices";
 import { useGetProject } from "@services/hooks/project/useGetProject";
+import Workspace from "@components/Workspace";
 import Spinner from "@components/ui/spinner/Spinner";
+import Modal from "@components/ui/Modal";
+import { useState } from "react";
 
 const ProjectWorkspace = () => {
+  const [openModal, setOpenModal] = useState(false);
+
+  const handleModal = (): void => {
+    setOpenModal(!openModal);
+  };
+
   const { id } = useParams<{ id: string }>();
   const { data, isLoading, isError, error } = useGetProjectDevices(id!);
   const {
@@ -22,36 +31,41 @@ const ProjectWorkspace = () => {
   return (
     <div className="p-4">
       {/* Title and Link */}
-      <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-semibold">{detailData?.data.name}</h1>
+      <div className="flex flex-wrap items-center justify-between mb-6 gap-4">
+        <h1 className="text-2xl font-semibold flex-1 min-w-[200px]">
+          {detailData?.data.name}
+        </h1>
 
-        <Button key={id} type="button" variant="secondary">
-          <Link to="/projects" className="w-full h-full">
-            Volver
-          </Link>
-        </Button>
+        <div className="flex gap-2">
+          <Button key={id + "return"} type="button" variant="secondary">
+            <Link to="/projects" className="w-full h-full">
+              Volver
+            </Link>
+          </Button>
+          <Button
+            key={id + "add-device"}
+            type="button"
+            variant="primary"
+            onClick={handleModal}
+          >
+            Agregar
+          </Button>
+        </div>
       </div>
 
       {/* Info and Devices */}
-      <div className="flex flex-col lg:flex-row border border-gray-300 rounded-md overflow-hidden">
-        <div className="flex-1 p-4 border-b lg:border-b-0 lg:border-r border-gray-300">
-          <h2 className="text-lg font-medium mb-2">Connection Information</h2>
-          <p className="text-gray-600">{detailData?.data.connection_name}</p>
-        </div>
-        <div className="flex-1 p-4">
-          <h2 className="text-lg font-medium mb-2">Devices List</h2>
-          <p className="text-gray-600">Details about devices will go here.</p>
-          {data?.data ? (
-            <ul>
-              {data.data.map((item) => (
-                <p>{item.device}</p>
-              ))}
-            </ul>
-          ) : (
-            <h2>{data?.message}</h2>
-          )}
-        </div>
-      </div>
+      <Workspace
+        connection={detailData?.data.connection_name}
+        devices={data?.data}
+      />
+
+      <Modal
+        isOpen={openModal}
+        onClose={handleModal}
+        closeButtonLabel="Cerrar"
+        content="Hola"
+        title="Agregar Dispositivo"
+      />
     </div>
   );
 };

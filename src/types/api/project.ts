@@ -9,14 +9,16 @@ export type UserProjects = {
   message: string;
 };
 
+export type ProjectDevice = {
+  id: string;
+  device: string;
+  activity: string;
+  max_consumption: number;
+  min_consumption: number;
+}
+
 export type ProjectDevices = {
-  data?: {
-    id: string;
-    device: string;
-    activity: string;
-    max_consumption: number;
-    min_consumption: number;
-  }[];
+  data?: ProjectDevice[];
   message: string;
 };
 
