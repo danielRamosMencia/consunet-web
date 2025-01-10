@@ -6,6 +6,7 @@ import Workspace from "@components/Workspace";
 import Spinner from "@components/ui/spinner/Spinner";
 import Modal from "@components/ui/Modal";
 import { useState } from "react";
+import AddDeviceForm from "@components/forms/AddDeviceForm";
 
 const ProjectWorkspace = () => {
   const [openModal, setOpenModal] = useState(false);
@@ -63,9 +64,10 @@ const ProjectWorkspace = () => {
         isOpen={openModal}
         onClose={handleModal}
         closeButtonLabel="Cerrar"
-        content="Hola"
         title="Agregar Dispositivo"
-      />
+      >
+        <AddDeviceForm></AddDeviceForm>
+      </Modal>
     </div>
   );
 };
