@@ -10,3 +10,9 @@ export interface ErrorResponse {
 export interface ErrorValidationResponse extends ErrorResponse {
   validations: string[];
 }
+
+export interface SelectOptions {
+  id: string;
+  name: string;
+  code: string;
+}
